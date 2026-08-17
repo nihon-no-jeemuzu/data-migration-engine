@@ -1,0 +1,4 @@
+legacyId,fullName,email,phoneNumber,dateOfBirth,status
+LEGACY_1001,Taro Yamada,taro.yamada@example.com,090-1234-5678,1985-05-15,ACTIVE
+LEGACY_1002,Jane Doe,jane.doe@company.com,080-9876-5432,1990-11-22,INACTIVE
+LEGACY_1003,Kenji Sato,kenji.sato@domain.jp,070-1111-2222,1978-01-30,SUSPENDED

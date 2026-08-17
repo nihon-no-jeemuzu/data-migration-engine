@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: enterprise-data-migration-engine
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/migration_db
+    username: postgres
+    password: postgrespassword
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  batch:
+    jdbc:
+      initialize-schema: never
+    job:
+      enabled: false
+
+logging:
+  level:
+    org.springframework.batch: INFO
+    org.hibernate.SQL: DEBUG
+    org.flywaydb: DEBUG

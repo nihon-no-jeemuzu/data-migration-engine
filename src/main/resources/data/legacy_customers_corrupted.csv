@@ -1,0 +1,6 @@
+CUST_ID,FULL_NAME,RAW_EMAIL,PHONE_NUM,DOB_STR,STATUS
+LEGACY_2001,Bad Email Guy,bademail.example.com,090-1111-2222,1985/01/01,A
+LEGACY_2002,Bad Date Girl,good@example.com,080-2222-3333,INVALID_DATE,A
+LEGACY_2003,  Missing Status ,missing.status@example.com,09033334444,1990/05/15,
+LEGACY_2004,Perfect User,perfect@example.com,070-9999-8888,1992/10/20,A
+LEGACY_2005,Weird Phone,weird.phone@example.com,PHONE_UNKNOWN,1988/02/28,I
