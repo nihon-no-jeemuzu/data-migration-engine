@@ -6,7 +6,6 @@ import com.project.migration.batch.writer.CustomerItemWriter;
 import com.project.migration.dto.LegacyCustomerDto;
 import com.project.migration.entity.Customer;
 import com.project.migration.exception.DataValidationException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.job.Job;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -23,6 +22,17 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
+/**
+ * Core Spring Batch configuration for the legacy data migration pipeline.
+ * <p>
+ * This configuration orchestrates the ETL (Extract, Transform, Load) process.
+ * It wires together the FlatFileItemReader for ingesting legacy CSV data,
+ * the ItemProcessor for business validation, and the JpaItemWriter for
+ * persisting sanitized records to PostgreSQL.
+ * </p>
+ */
 @Slf4j
 @Configuration
 public class BatchConfig {
@@ -40,6 +50,7 @@ public class BatchConfig {
         executor.setMaxPoolSize(MAX_POOL_SIZE);
         executor.setQueueCapacity(QUEUE_CAPACITY);
         executor.setThreadNamePrefix("batch-thread-");
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.setAwaitTerminationSeconds(60);
         executor.initialize();
@@ -50,7 +61,7 @@ public class BatchConfig {
     public FlatFileItemReader<LegacyCustomerDto> rawCustomerItemReader() {
         return new FlatFileItemReaderBuilder<LegacyCustomerDto>()
                 .name("rawCustomerItemReader")
-                .resource(new ClassPathResource("data/legacy_customers_valid.csv"))
+                .resource(new ClassPathResource("data/legacy_customers_1M.csv"))
                 .linesToSkip(1)
                 .delimited()
                 .names("legacyId", "fullName", "email", "phoneNumber", "dateOfBirth", "status")

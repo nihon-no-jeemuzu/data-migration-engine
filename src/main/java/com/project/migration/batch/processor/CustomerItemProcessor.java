@@ -12,6 +12,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+/**
+ * Processor responsible for sanitizing and validating legacy customer data.
+ * <p>
+ * This component acts as the primary business logic gatekeeper. It trims whitespace,
+ * standardizes name formatting, and validates email structures. If a record contains
+ * unparseable or corrupt data (such as malformed dates), it throws a
+ * DataValidationException to route the record to the quarantine log rather than
+ * failing the entire batch job.
+ * </p>
+ */
 @Component
 public class CustomerItemProcessor implements ItemProcessor<LegacyCustomerDto, Customer> {
 

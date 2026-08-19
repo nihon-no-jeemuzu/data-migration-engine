@@ -8,6 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * JPA Entity representing the quarantine log for failed migration records.
+ * <p>
+ * When the batch processor encounters malformed legacy data that cannot be
+ * safely transformed, the raw payload and the corresponding exception stack trace
+ * are captured and persisted here. This allows the job to continue processing
+ * while providing an audit trail for the Data Operations team to manually review.
+ * </p>
+ */
 @Entity
 @Table(name = "migration_item_error_log")
 @Data

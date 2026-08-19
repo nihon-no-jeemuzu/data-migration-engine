@@ -1,4 +1,7 @@
+version: '3.8'
+
 services:
+  # 1. PostgreSQL Database
   postgres:
     image: postgres:16-alpine
     container_name: migration_db
@@ -10,6 +13,30 @@ services:
       POSTGRES_PASSWORD: postgrespassword
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  # 2. Prometheus (Metrics Scraper & Time-Series DB)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: datamigration-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      # Mounts the configuration file we will create in Step 2
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    extra_hosts:
+      # Ensures the container can access your host machine's localhost (Spring Boot)
+      - "host.docker.internal:host-gateway"
+
+  # 3. Grafana (Dashboard & Visualization)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: datamigration-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Default password for login
+    depends_on:
+      - prometheus
 
 volumes:
   postgres_data:

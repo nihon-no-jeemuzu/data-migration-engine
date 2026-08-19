@@ -23,16 +23,15 @@ class BatchReaderIntegrationTest {
 
         customerItemReader.open(executionContext);
 
-        LegacyCustomerDto firstRecord = customerItemReader.read();
+        LegacyCustomerDto item = customerItemReader.read();
 
-        assertNotNull(firstRecord, "The reader should have returned a record, but it returned null.");
-
-        assertEquals("LEGACY_1001", firstRecord.getLegacyId());
-        assertEquals("Taro Yamada", firstRecord.getFullName());
-        assertEquals("taro.yamada@example.com", firstRecord.getEmail());
-        assertEquals("090-1234-5678", firstRecord.getPhoneNumber());
-        assertEquals("1985-05-15", firstRecord.getDateOfBirth());
-        assertEquals("ACTIVE", firstRecord.getStatus());
+        assertNotNull(item);
+        assertEquals("LEGACY_1", item.getLegacyId()); // Updated
+        assertEquals("Test User 1", item.getFullName()); // Updated
+        assertEquals("user1@enterprise.com", item.getEmail()); // Updated
+        assertEquals("090-1234-5678", item.getPhoneNumber());
+        assertEquals("1985-05-15", item.getDateOfBirth());
+        assertEquals("ACTIVE", item.getStatus());
 
         customerItemReader.close();
     }

@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s # Scrape data every 5 seconds for real-time monitoring
+
+scrape_configs:
+  - job_name: 'data-migration-engine'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      # host.docker.internal allows the Docker container to access localhost on your host machine (where Spring Boot is running)
+      - targets: ['host.docker.internal:8080']

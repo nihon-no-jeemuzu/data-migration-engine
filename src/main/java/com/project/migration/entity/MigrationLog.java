@@ -5,6 +5,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Audit table tracking job-level execution telemetry.
+ * <p>
+ * Stores high-level metrics for each batch job run, including start/end times,
+ * total records processed, and final exit status. Used by the observability
+ * stack and REST control plane to monitor migration health.
+ * </p>
+ */
 @Entity
 @Table(name = "migration_logs")
 @Getter

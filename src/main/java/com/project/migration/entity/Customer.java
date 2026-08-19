@@ -7,6 +7,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Primary JPA Entity representing a sanitized and validated customer record.
+ * <p>
+ * This entity maps directly to the target 'customers' table in PostgreSQL.
+ * Instances of this class represent data that has successfully passed all
+ * business rules and transformation logic in the batch pipeline.
+ * </p>
+ */
+
 @Entity
 @Table(name = "customers", indexes = {
         @Index(name = "idx_clean_email", columnList = "clean_email"),

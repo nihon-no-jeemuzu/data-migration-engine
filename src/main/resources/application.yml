@@ -41,3 +41,19 @@ logging:
     org.springframework.batch: INFO
     org.hibernate.SQL: DEBUG
     org.flywaydb: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    tags:
+      application: DataMigrationEngine
